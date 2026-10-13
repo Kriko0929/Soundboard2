@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f6e8">
+    <title>Óvoda és Bölcsőde</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+    <!-- FŐOLDAL -->
+    <main id="fooldal" class="nezet">
+        <div class="logo">
+            <img src="img/lábléc.png" alt="Bölcsőde és Óvoda">
+        </div>
+
+        <div class="csoportvalaszto">
+            <button type="button" class="csoportjel" data-csoport="nap" aria-label="Bölcsőde – Napocska">
+                <img src="img/napjel.png" alt="Napocska">
+            </button>
+            <button type="button" class="csoportjel" data-csoport="pillango" aria-label="Óvoda – Pillangó">
+                <img src="img/pillangojel.png" alt="Pillangó">
+            </button>
+            <button type="button" class="csoportjel" data-csoport="katica" aria-label="Óvoda – Katica">
+                <img src="img/katicajel.png" alt="Katica">
+            </button>
+            <button type="button" class="csoportjel" data-csoport="mehecske" aria-label="Óvoda – Méhecske">
+                <img src="img/mehecskejel.png" alt="Méhecske">
+            </button>
+        </div>
+    </main>
+
+    <!-- CSOPORTOLDAL -->
+    <main id="csoportOldal" class="nezet rejtett">
+
+        <header class="fejlec">
+            <button type="button" class="vissza" id="visszaFooldalra">
+                ← Vissza a főoldalra
+            </button>
+
+            <div class="csoportfejlec">
+                <div class="csoportszoveg">
+                    <h1 id="csoportNev">Óvoda</h1>
+                    <p>Tevékenységek és élmények</p>
+                </div>
+
+                <img id="csoportKep" src="img/pillangojel.png" alt="Csoportjel">
+            </div>
+        </header>
+
+        <!-- KATEGÓRIÁK -->
+        <section id="menuOldal">
+            <div class="bevezeto">
+                <h2>Mit csináljunk ma? 🌼</h2>
+                <p>Válassz egy tevékenységet!</p>
+            </div>
+
+            <div class="menuk">
+                <button type="button" class="kartya torna" data-kategoria="torna">
+                    <span class="ikon">🤸</span>
+                    <h3>Torna</h3>
+                    <p>Mozgás, torna és ügyességi játékok</p>
+                </button>
+
+                <button type="button" class="kartya enek" data-kategoria="enek">
+                    <span class="ikon">🎵</span>
+                    <h3>Ének-zene-tánc</h3>
+                    <p>Dalok, mondókák és ritmusjátékok</p>
+                </button>
+
+                <button type="button" class="kartya kedvencek" data-kategoria="kedvencek">
+                    <span class="ikon">⭐</span>
+                    <h3>Kedvencek</h3>
+                    <p>A csoport kedvenc tevékenységei</p>
+                </button>
+
+                <button type="button" class="kartya mese" data-kategoria="mese">
+                    <span class="ikon">📚</span>
+                    <h3>Mesék, versek</h3>
+                    <p>Mesék, történetek és versek</p>
+                </button>
+
+                <button type="button" class="kartya jatekok" data-kategoria="jatekok">
+                    <span class="ikon">🧩</span>
+                    <h3>Játékok</h3>
+                    <p>Közös és interaktív játékok</p>
+                </button>
+
+                <button type="button" class="kartya unnepek" data-kategoria="unnepek">
+                    <span class="ikon">🎉</span>
+                    <h3>Jeles napok</h3>
+                    <p>Ünnepek, évszakok és hagyományok</p>
+                </button>
+            </div>
+        </section>
+
+        <!-- A TÖBBI KATEGÓRIA -->
+        <section class="tartalom" id="tartalomOldal" aria-live="polite">
+            <div class="tartalom-ikon" id="tartalomIkon">🌟</div>
+            <h2 id="tartalomCim">Tevékenység</h2>
+            <p id="tartalomLeiras"></p>
+            <span class="kesobbi">A tartalmakat később ide építjük be.</span>
+
+            <button type="button" id="openSoundboard" class="soundboard-launch rejtett">
+                🔊 Gombos Játék megnyitása
+            </button>
+        </section>
+
+        <!-- MESÉK ÉS VERSEK -->
+        <section id="meseView" class="mese-nezet rejtett">
+
+            <!-- MESE / VERSE VÁLASZTÓ -->
+            <div class="mese-valaszto" id="meseValaszto">
+                <h2>📚 Mesék, versek</h2>
+                <p>Mit szeretnél megnyitni?</p>
+
+                <div class="mese-valaszto-gombok">
+                    <button type="button" class="mese-valaszto-gomb mese-gomb" id="mesekMegnyitasa">
+                        <span>📺</span>
+                        <strong>Mesék</strong>
+                        <small>YouTube-mesék gyűjteménye</small>
+                    </button>
+
+                    <button type="button" class="mese-valaszto-gomb versek-gomb" id="versekMegnyitasa">
+                        <span>📖</span>
+                        <strong>Versek</strong>
+                        <small>Versek és mondókák</small>
+                    </button>
+                </div>
+            </div>
+
+            <!-- MESÉK OLDALA -->
+            <div id="mesekOldala" class="rejtett">
+
+                <div class="mese-fejlec">
+                    <button type="button" class="vissza" id="visszaMeseValaszto">
+                        ← Vissza
+                    </button>
+
+                    <div>
+                        <h2>📺 Mesék</h2>
+                        <p>Ide gyűjthetitek a csoport meséit.</p>
+                    </div>
+                </div>
+
+                <div class="mese-muveletek">
+                    <button type="button" id="ujMeseGomb" class="fo-gomb">
+                        ＋ Új mese hozzáadása
+                    </button>
+                </div>
+
+                <!-- ÜRES ÁLLAPOT -->
+                <button type="button" id="meseUresGomb" class="mese-ures">
+                    <span>＋</span>
+                    <strong>Nincs mese berakva</strong>
+                    <small>Kattints ide egy YouTube-mese hozzáadásához!</small>
+                </button>
+
+                <!-- ÚJ MESE / SZERKESZTÉS -->
+                <form id="meseUrlap" class="mese-urlap rejtett">
+                    <h3 id="meseUrlapCim">Új mese hozzáadása</h3>
+
+                    <label for="meseCime">A mese neve</label>
+                    <input
+                        type="text"
+                        id="meseCime"
+                        maxlength="120"
+                        placeholder="Például: A kiskakas gyémánt félkrajcárja"
+                        required
+                    >
+
+                    <label for="meseYoutubeLink">YouTube-link</label>
+                    <input
+                        type="url"
+                        id="meseYoutubeLink"
+                        placeholder="https://www.youtube.com/watch?v=..."
+                        required
+                    >
+
+                    <p class="urlap-segitseg">
+                        YouTube-videólinket illessz be. A videó ezen az oldalon
+                        jelenik meg, ha a YouTube engedélyezi a beágyazást.
+                    </p>
+
+                    <div class="urlap-gombok">
+                        <button type="submit" class="fo-gomb" id="meseMentesGomb">
+                            💾 Mese mentése
+                        </button>
+
+                        <button type="button" class="masodlagos-gomb" id="meseUrlapMegse">
+                            Mégse
+                        </button>
+                    </div>
+                </form>
+
+                <div id="mesekLista" class="mesek-lista"></div>
+            </div>
+
+            <!-- VERSEK – KÉSŐBB FEJLESZTJÜK -->
+            <div id="versekOldala" class="rejtett">
+                <div class="mese-fejlec">
+                    <button type="button" class="vissza" id="visszaVersekValaszto">
+                        ← Vissza
+                    </button>
+
+                    <div>
+                        <h2>📖 Versek</h2>
+                        <p>Versek és mondókák gyűjteménye.</p>
+                    </div>
+                </div>
+
+                <div class="versek-elokeszites">
+                    <span>📚</span>
+                    <h3>A versek helye</h3>
+                    <p>
+                        Ide később verseket lehet majd felvenni, írni,
+                        szerkeszteni és törölni.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <button type="button" class="vissza rejtett" id="visszaKategoriakhoz">
+            ← Vissza a tevékenységekhez
+        </button>
+    </main>
+
+    <!-- GOMBOS JÁTÉK -->
+    <main id="soundboardView" class="rejtett" aria-label="Gombos Játék">
+        <div id="soundboardApp">
+
+            <div id="sbPlaybackControls" aria-label="Lejátszásvezérlés">
+                <button type="button" id="sbPlayBtn" aria-label="Lejátszás vagy folytatás" title="Lejátszás / Folytatás">▶</button>
+                <button type="button" id="sbPauseBtn" aria-label="Szüneteltetés" title="Szünet">⏸</button>
+            </div>
+
+            <button
+                type="button"
+                id="sbMenuBtn"
+                aria-label="Beállítások megnyitása vagy bezárása"
+                aria-expanded="false"
+                title="Beállítások"
+            >
+                <span></span><span></span><span></span>
+            </button>
+
+            <div id="sbButtons">
+                <div class="sb-btn-wrap"><span class="sb-btn-label">Gomb 1</span><button type="button" class="sb-btn-sound" aria-label="Gomb 1 lejátszása"></button></div>
+                <div class="sb-btn-wrap"><span class="sb-btn-label">Gomb 2</span><button type="button" class="sb-btn-sound" aria-label="Gomb 2 lejátszása"></button></div>
+                <div class="sb-btn-wrap"><span class="sb-btn-label">Gomb 3</span><button type="button" class="sb-btn-sound" aria-label="Gomb 3 lejátszása"></button></div>
+                <div class="sb-btn-wrap"><span class="sb-btn-label">Gomb 4</span><button type="button" class="sb-btn-sound" aria-label="Gomb 4 lejátszása"></button></div>
+                <div class="sb-btn-wrap"><span class="sb-btn-label">Gomb 5</span><button type="button" class="sb-btn-sound" aria-label="Gomb 5 lejátszása"></button></div>
+                <div class="sb-btn-wrap"><span class="sb-btn-label">Gomb 6</span><button type="button" class="sb-btn-sound" aria-label="Gomb 6 lejátszása"></button></div>
+                <div class="sb-btn-wrap"><span class="sb-btn-label">Gomb 7</span><button type="button" class="sb-btn-sound" aria-label="Gomb 7 lejátszása"></button></div>
+                <div class="sb-btn-wrap"><span class="sb-btn-label">Gomb 8</span><button type="button" class="sb-btn-sound" aria-label="Gomb 8 lejátszása"></button></div>
+            </div>
+
+            <aside id="sbPanel" aria-label="Gombos játék beállításai" aria-hidden="true">
+                <h3>Beállítások</h3>
+                <div id="sbMenuList"></div>
+
+                <div id="sbEditPanel" class="sb-subpanel">
+                    <h4 id="sbEditTitle">Gomb beállítása</h4>
+
+                    <label for="sbImgUpload">Gomb képe</label>
+                    <div class="sb-file-wrapper">
+                        <span id="sbImgLabel">Nincs kép</span>
+                        <input type="file" id="sbImgUpload" class="sb-file-input" accept="image/*">
+                    </div>
+
+                    <label for="sbSndUpload">Gomb hangja</label>
+                    <div class="sb-file-wrapper">
+                        <span id="sbSndLabel">Nincs hang</span>
+                        <input type="file" id="sbSndUpload" class="sb-file-input" accept="audio/*">
+                    </div>
+
+                    <button type="button" id="sbEditBack" class="sb-panel-back">
+                        ← Vissza a beállításokhoz
+                    </button>
+                </div>
+
+                <div id="sbBackgroundPanel" class="sb-subpanel">
+                    <h4>Háttér cseréje</h4>
+
+                    <label for="sbBgUpload">Háttérkép kiválasztása</label>
+                    <div class="sb-file-wrapper">
+                        <span id="sbBgLabel">Nincs háttérkép</span>
+                        <input type="file" id="sbBgUpload" class="sb-file-input" accept="image/*">
+                    </div>
+
+                    <button type="button" id="sbBgBack" class="sb-panel-back">
+                        ← Vissza a beállításokhoz
+                    </button>
+                </div>
+
+                <button type="button" id="sbBackBtn" class="sb-menu-item sb-return-item">
+                    ← Vissza a Játékokhoz
+                </button>
+            </aside>
+        </div>
+    </main>
+</div>
+
+<script>
+"use strict";
+
+/* =========================================
+   CSOPORTOK ÉS KATEGÓRIÁK
+   ========================================= */
+
+const csoportok = {
+    nap: {
+        nev: "Bölcsőde – Napocska",
+        kep: "img/napjel.png",
+        alt: "Napocska"
+    },
+    pillango: {
+        nev: "Óvoda – Pillangó",
+        kep: "img/pillangojel.png",
+        alt: "Pillangó"
+    },
+    katica: {
+        nev: "Óvoda – Katica",
+        kep: "img/katicajel.png",
+        alt: "Katica"
+    },
+    mehecske: {
+        nev: "Óvoda – Méhecske",
+        kep: "img/mehecskejel.png",
+        alt: "Méhecske"
+    }
+};
+
+const kategoriak = {
+    torna: {
+        cim: "Torna",
+        ikon: "🤸",
+        leiras: "Itt kapnak majd helyet a mozgásos feladatok, tornagyakorlatok és ügyességi játékok."
+    },
+    enek: {
+        cim: "Ének-zene-tánc",
+        ikon: "🎵",
+        leiras: "Itt lesznek majd a dalok, zenék, mondókák, ritmusjátékok és táncos tevékenységek."
+    },
+    kedvencek: {
+        cim: "Kedvencek",
+        ikon: "⭐",
+        leiras: "Ide kerülhetnek a csoport kedvenc hangjai, dalai, játékai és gyakran használt tevékenységei."
+    },
+    mese: {
+        cim: "Mesék, versek",
+        ikon: "📚",
+        leiras: "Itt gyűjthetjük össze a meséket, történeteket és verseket."
+    },
+    jatekok: {
+        cim: "Játékok",
+        ikon: "🧩",
+        leiras: "Ide kerülhetnek a közös játékok, játékos feladatok és interaktív tevékenységek."
+    },
+    unnepek: {
+        cim: "Jeles napok",
+        ikon: "🎉",
+        leiras: "Itt gyűjthetjük össze az ünnepekhez, évszakokhoz és hagyományokhoz kapcsolódó tartalmakat."
+    }
+};
+
+/* =========================================
+   FŐ OLDAL ELEMEI
+   ========================================= */
+
+const fooldal = document.getElementById("fooldal");
+const csoportOldal = document.getElementById("csoportOldal");
+const csoportNev = document.getElementById("csoportNev");
+const csoportKep = document.getElementById("csoportKep");
+const menuOldal = document.getElementById("menuOldal");
+const tartalomOldal = document.getElementById("tartalomOldal");
+const meseView = document.getElementById("meseView");
+const visszaFooldalra = document.getElementById("visszaFooldalra");
+const visszaKategoriakhoz = document.getElementById("visszaKategoriakhoz");
+
+let aktualisCsoport = null;
+let aktualisKategoria = null;
+
+function animacioUjrainditasa(elem) {
+    elem.classList.remove("megjelenik");
+    void elem.offsetWidth;
+    elem.classList.add("megjelenik");
+}
+
+/* =========================================
+   CSOPORTNAVIGÁCIÓ
+   ========================================= */
+
+function csoportMegnyitasa(azonosito) {
+    sbStopAndReset();
+
+    const adat = csoportok[azonosito];
+    if (!adat) return;
+
+    aktualisCsoport = azonosito;
+    aktualisKategoria = null;
+
+    csoportNev.textContent = adat.nev;
+    csoportKep.src = adat.kep;
+    csoportKep.alt = adat.alt;
+
+    tartalomOldal.classList.remove("lathato");
+    tartalomOldal.style.display = "none";
+
+    meseView.classList.add("rejtett");
+    menuOldal.style.display = "block";
+
+    visszaKategoriakhoz.classList.add("rejtett");
+
+    fooldal.classList.add("rejtett");
+    csoportOldal.classList.remove("rejtett");
+
+    animacioUjrainditasa(csoportOldal);
+    window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+function fooldalMegnyitasa() {
+    sbStopAndReset();
+
+    aktualisCsoport = null;
+    aktualisKategoria = null;
+
+    csoportOldal.classList.add("rejtett");
+    meseView.classList.add("rejtett");
+
+    fooldal.classList.remove("rejtett");
+    animacioUjrainditasa(fooldal);
+
+    window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+document.querySelectorAll("[data-csoport]").forEach(gomb => {
+    gomb.addEventListener("click", () => {
+        csoportMegnyitasa(gomb.dataset.csoport);
+    });
+});
+
+document.querySelectorAll("[data-kategoria]").forEach(gomb => {
+    gomb.addEventListener("click", () => {
+        sbStopAndReset();
+
+        const azonosito = gomb.dataset.kategoria;
+        const adat = kategoriak[azonosito];
+
+        if (!adat) return;
+
+        aktualisKategoria = azonosito;
+        menuOldal.style.display = "none";
+
+        visszaKategoriakhoz.classList.remove("rejtett");
+        visszaKategoriakhoz.style.display = "inline-flex";
+
+        if (azonosito === "mese") {
+            tartalomOldal.style.display = "none";
+            meseView.classList.remove("rejtett");
+
+            meseNezetAlaphelyzet();
+            animacioUjrainditasa(meseView);
+
+            mesekBetoltese();
+        } else {
+            meseView.classList.add("rejtett");
+
+            document.getElementById("tartalomIkon").textContent = adat.ikon;
+            document.getElementById("tartalomCim").textContent = adat.cim;
+            document.getElementById("tartalomLeiras").textContent = adat.leiras;
+
+            document.getElementById("openSoundboard").classList.toggle(
+                "rejtett",
+                azonosito !== "jatekok"
+            );
+
+            tartalomOldal.style.display = "block";
+            tartalomOldal.classList.remove("lathato");
+
+            void tartalomOldal.offsetWidth;
+            tartalomOldal.classList.add("lathato");
+        }
+
+        window.scrollTo({ top: 0, behavior: "auto" });
+    });
+});
+
+visszaFooldalra.addEventListener("click", fooldalMegnyitasa);
+
+visszaKategoriakhoz.addEventListener("click", () => {
+    sbStopAndReset();
+
+    if (!aktualisCsoport) return;
+
+    meseView.classList.add("rejtett");
+
+    tartalomOldal.classList.remove("lathato");
+    tartalomOldal.style.display = "none";
+
+    menuOldal.style.display = "block";
+
+    animacioUjrainditasa(menuOldal);
+
+    visszaKategoriakhoz.classList.add("rejtett");
+
+    window.scrollTo({ top: 0, behavior: "auto" });
+});
+
+/* =========================================
+   MESÉK – CSOPORTONKÉNTI YOUTUBE-GYŰJTEMÉNY
+   ========================================= */
+
+const meseValaszto = document.getElementById("meseValaszto");
+const mesekOldala = document.getElementById("mesekOldala");
+const versekOldala = document.getElementById("versekOldala");
+const mesekLista = document.getElementById("mesekLista");
+const meseUresGomb = document.getElementById("meseUresGomb");
+const meseUrlap = document.getElementById("meseUrlap");
+const meseCime = document.getElementById("meseCime");
+const meseYoutubeLink = document.getElementById("meseYoutubeLink");
+
+let csoportMesek = [];
+let szerkesztettMeseId = null;
+let meseBetoltesFolyamatban = false;
+
+function meseKulcs() {
+    return `csoport_${aktualisCsoport}_mesek`;
+}
+
+function meseNezetAlaphelyzet() {
+    meseValaszto.classList.remove("rejtett");
+    mesekOldala.classList.add("rejtett");
+    versekOldala.classList.add("rejtett");
+
+    meseUrlapBezarasa();
+}
+
+function meseUrlapBezarasa() {
+    meseUrlap.classList.add("rejtett");
+    meseUrlap.reset();
+
+    szerkesztettMeseId = null;
+
+    document.getElementById("meseUrlapCim").textContent =
+        "Új mese hozzáadása";
+
+    document.getElementById("meseMentesGomb").textContent =
+        "💾 Mese mentése";
+}
+
+function meseUrlapMegnyitasa(mese = null) {
+    meseUrlap.classList.remove("rejtett");
+
+    szerkesztettMeseId = mese ? mese.id : null;
+
+    document.getElementById("meseUrlapCim").textContent =
+        mese ? "Mese szerkesztése" : "Új mese hozzáadása";
+
+    document.getElementById("meseMentesGomb").textContent =
+        mese ? "💾 Módosítások mentése" : "💾 Mese mentése";
+
+    meseCime.value = mese ? mese.cim : "";
+    meseYoutubeLink.value = mese ? mese.url : "";
+
+    meseUrlap.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+    meseCime.focus();
+}
+
+/*
+ * YouTube-linkek feldolgozása.
+ * Támogatott példák:
+ * youtube.com/watch?v=...
+ * youtu.be/...
+ * youtube.com/shorts/...
+ * youtube.com/embed/...
+ * youtube.com/live/...
+ */
+function youtubeVideoId(link) {
+    try {
+        const url = new URL(link.trim());
+        const host = url.hostname.toLowerCase().replace(/^www\./, "");
+
+        if (host === "youtu.be") {
+            const id = url.pathname.split("/").filter(Boolean)[0];
+
+            return id && /^[A-Za-z0-9_-]{11}$/.test(id)
+                ? id
+                : null;
+        }
+
+        const engedelyezettHostok = [
+            "youtube.com",
+            "m.youtube.com",
+            "music.youtube.com",
+            "youtube-nocookie.com"
+        ];
+
+        if (!engedelyezettHostok.includes(host)) {
+            return null;
+        }
+
+        let id = url.searchParams.get("v");
+
+        if (!id) {
+            const reszek = url.pathname.split("/").filter(Boolean);
+
+            if (
+                ["embed", "shorts", "live", "v"].includes(reszek[0])
+            ) {
+                id = reszek[1];
+            }
+        }
+
+        return id && /^[A-Za-z0-9_-]{11}$/.test(id)
+            ? id
+            : null;
+
+    } catch (error) {
+        return null;
+    }
+}
+
+async function mesekBetoltese() {
+    if (!aktualisCsoport || meseBetoltesFolyamatban) return;
+
+    meseBetoltesFolyamatban = true;
+
+    try {
+        await sbOpenDb();
+
+        const mentett = await sbLoad(meseKulcs());
+
+        csoportMesek = Array.isArray(mentett) ? mentett : [];
+
+        mesekKirajzolasa();
+
+    } catch (error) {
+        console.error("A mesék betöltése nem sikerült:", error);
+
+        mesekLista.textContent =
+            "A mentett meséket nem sikerült betölteni. Próbáld újra.";
+
+    } finally {
+        meseBetoltesFolyamatban = false;
+    }
+}
+
+async function mesekMentese() {
+    await sbOpenDb();
+    await sbSave(meseKulcs(), csoportMesek);
+}
+
+function mesekKirajzolasa() {
+    mesekLista.replaceChildren();
+
+    const ures = csoportMesek.length === 0;
+
+    meseUresGomb.classList.toggle("rejtett", !ures);
+
+    csoportMesek.forEach(mese => {
+        const kartya = document.createElement("article");
+        kartya.className = "mese-kartya";
+
+        const cim = document.createElement("h3");
+        cim.textContent = mese.cim;
+        kartya.appendChild(cim);
+
+        /*
+         * YouTube-beágyazás.
+         * A normál youtube.com címet használjuk.
+         */
+        const video = document.createElement("iframe");
+
+        video.className = "mese-video";
+        video.src = `https://www.youtube.com/embed/${mese.videoId}`;
+        video.title = mese.cim;
+        video.loading = "lazy";
+
+        video.setAttribute(
+            "allow",
+            "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        );
+
+        video.setAttribute("allowfullscreen", "");
+        video.setAttribute(
+            "referrerpolicy",
+            "strict-origin-when-cross-origin"
+        );
+
+        video.setAttribute(
+            "frameborder",
+            "0"
+        );
+
+        kartya.appendChild(video);
+
+        /*
+         * Közvetlen YouTube-link.
+         * Akkor is elérhető, ha a beágyazott lejátszó hibázik.
+         */
+        const youtubeLink = document.createElement("a");
+
+        youtubeLink.className = "mese-youtube-link";
+        youtubeLink.href = `https://www.youtube.com/watch?v=${mese.videoId}`;
+        youtubeLink.target = "_blank";
+        youtubeLink.rel = "noopener noreferrer";
+        youtubeLink.textContent = "▶ Megnyitás a YouTube-on";
+
+        kartya.appendChild(youtubeLink);
+
+        const muveletek = document.createElement("div");
+        muveletek.className = "mese-kartya-muveletek";
+
+        const szerkesztes = document.createElement("button");
+
+        szerkesztes.type = "button";
+        szerkesztes.className = "masodlagos-gomb";
+        szerkesztes.textContent = "✏️ Szerkesztés";
+
+        szerkesztes.addEventListener("click", () => {
+            meseUrlapMegnyitasa(mese);
+        });
+
+        const torles = document.createElement("button");
+
+        torles.type = "button";
+        torles.className = "torles-gomb";
+        torles.textContent = "🗑️ Mese törlése";
+
+        torles.addEventListener("click", async () => {
+            const megerosites = confirm(
+                `Biztosan törlöd ezt a mesét?\n\n${mese.cim}`
+            );
+
+            if (!megerosites) return;
+
+            const regiMesek = [...csoportMesek];
+
+            csoportMesek = csoportMesek.filter(
+                item => item.id !== mese.id
+            );
+
+            try {
+                await mesekMentese();
+                mesekKirajzolasa();
+
+            } catch (error) {
+                csoportMesek = regiMesek;
+                mesekKirajzolasa();
+
+                alert("A mese törlése nem sikerült. Próbáld újra.");
+                console.error(error);
+            }
+        });
+
+        muveletek.append(szerkesztes, torles);
+        kartya.appendChild(muveletek);
+
+        mesekLista.appendChild(kartya);
+    });
+}
+
+/* MESE / VERSE VÁLASZTÁS */
+
+document.getElementById("mesekMegnyitasa").addEventListener("click", () => {
+    meseValaszto.classList.add("rejtett");
+    versekOldala.classList.add("rejtett");
+    mesekOldala.classList.remove("rejtett");
+
+    meseUrlapBezarasa();
+
+    mesekBetoltese();
+
+    window.scrollTo({ top: 0, behavior: "auto" });
+});
+
+document.getElementById("versekMegnyitasa").addEventListener("click", () => {
+    meseValaszto.classList.add("rejtett");
+    mesekOldala.classList.add("rejtett");
+    versekOldala.classList.remove("rejtett");
+
+    window.scrollTo({ top: 0, behavior: "auto" });
+});
+
+document.getElementById("visszaMeseValaszto").addEventListener("click", () => {
+    meseUrlapBezarasa();
+
+    mesekOldala.classList.add("rejtett");
+    meseValaszto.classList.remove("rejtett");
+
+    window.scrollTo({ top: 0, behavior: "auto" });
+});
+
+document.getElementById("visszaVersekValaszto").addEventListener("click", () => {
+    versekOldala.classList.add("rejtett");
+    meseValaszto.classList.remove("rejtett");
+
+    window.scrollTo({ top: 0, behavior: "auto" });
+});
+
+/* MESE HOZZÁADÁSA ÉS ŰRLAP */
+
+document.getElementById("ujMeseGomb").addEventListener("click", () => {
+    meseUrlapMegnyitasa();
+});
+
+meseUresGomb.addEventListener("click", () => {
+    meseUrlapMegnyitasa();
+});
+
+document.getElementById("meseUrlapMegse").addEventListener("click", () => {
+    meseUrlapBezarasa();
+});
+
+meseUrlap.addEventListener("submit", async event => {
+    event.preventDefault();
+
+    if (!aktualisCsoport) return;
+
+    const cim = meseCime.value.trim();
+    const url = meseYoutubeLink.value.trim();
+    const videoId = youtubeVideoId(url);
+
+    if (!cim) {
+        alert("Írd be a mese nevét!");
+        meseCime.focus();
+        return;
+    }
+
+    if (!videoId) {
+        alert(
+            "Ez a YouTube-link nem tűnik érvényes videólinknek. " +
+            "Másold be a videó Megosztás menüjében található linket!"
+        );
+
+        meseYoutubeLink.focus();
+        return;
+    }
+
+    const regiMesek = [...csoportMesek];
+
+    if (szerkesztettMeseId) {
+        csoportMesek = csoportMesek.map(mese =>
+            mese.id === szerkesztettMeseId
+                ? { ...mese, cim, url, videoId }
+                : mese
+        );
+
+    } else {
+        csoportMesek.push({
+            id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+            cim,
+            url,
+            videoId
+        });
+    }
+
+    try {
+        await mesekMentese();
+
+        mesekKirajzolasa();
+        meseUrlapBezarasa();
+
+    } catch (error) {
+        csoportMesek = regiMesek;
+        mesekKirajzolasa();
+
+        console.error("A mese mentése nem sikerült:", error);
+
+        alert(
+            "A mese mentése nem sikerült. " +
+            "Ellenőrizd, hogy a böngésző engedélyezi-e a helyi adattárolást."
+        );
+    }
+});
+
+/* =========================================
+   GOMBOS JÁTÉK – ADATBÁZIS
+   ========================================= */
+
+const sbView = document.getElementById("soundboardView");
+const sbApp = document.getElementById("soundboardApp");
+const sbLaunch = document.getElementById("openSoundboard");
+const sbPanel = document.getElementById("sbPanel");
+const sbMenuBtn = document.getElementById("sbMenuBtn");
+const sbMenuList = document.getElementById("sbMenuList");
+const sbButtons = [...document.querySelectorAll(".sb-btn-sound")];
+const sbLabels = [...document.querySelectorAll(".sb-btn-label")];
+const sbPlayBtn = document.getElementById("sbPlayBtn");
+const sbPauseBtn = document.getElementById("sbPauseBtn");
+const sbBackBtn = document.getElementById("sbBackBtn");
+
+let sbDb = null;
+let sbSounds = Array(8).fill(null);
+let sbCurrentSound = null;
+let sbCurrentIndex = null;
+let sbEditingIndex = null;
+let sbCurrentObjectUrl = Array(8).fill(null);
+let sbImageObjectUrls = Array(8).fill(null);
+let sbBackgroundObjectUrl = null;
+
+const SB_DB = "OviSoundboardDB";
+const SB_STORE = "settings";
+
+function sbKey(key) {
+    return `csoport_${aktualisCsoport || "nap"}_${key}`;
+}
+
+/* ADATBÁZIS MEGNYITÁSA */
+
+function sbOpenDb() {
+    if (sbDb) return Promise.resolve(sbDb);
+
+    return new Promise((resolve, reject) => {
+        if (!("indexedDB" in window)) {
+            reject(new Error("A böngésző nem támogatja az IndexedDB-t."));
+            return;
+        }
+
+        const req = indexedDB.open(SB_DB, 1);
+
+        req.onupgradeneeded = event => {
+            const db = event.target.result;
+
+            if (!db.objectStoreNames.contains(SB_STORE)) {
+                db.createObjectStore(SB_STORE);
+            }
+        };
+
+        req.onsuccess = event => {
+            sbDb = event.target.result;
+
+            sbDb.onversionchange = () => {
+                sbDb.close();
+                sbDb = null;
+            };
+
+            resolve(sbDb);
+        };
+
+        req.onerror = () => reject(req.error);
+    });
+}
+
+function sbSave(key, value) {
+    return new Promise((resolve, reject) => {
+        if (!sbDb) {
+            reject(new Error("Az adatbázis még nem érhető el."));
+            return;
+        }
+
+        const tx = sbDb.transaction(SB_STORE, "readwrite");
+
+        tx.objectStore(SB_STORE).put(value, key);
+
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+        tx.onabort = () => reject(tx.error);
+    });
+}
+
+function sbLoad(key) {
+    return new Promise((resolve, reject) => {
+        if (!sbDb) {
+            reject(new Error("Az adatbázis még nem érhető el."));
+            return;
+        }
+
+        const tx = sbDb.transaction(SB_STORE, "readonly");
+        const req = tx.objectStore(SB_STORE).get(key);
+
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+    });
+}
+
+function sbUrl(file) {
+    return URL.createObjectURL(file);
+}
+
+/* HANGLEJÁTSZÁS */
+
+function sbSetPlayingStyle(index, playing) {
+    if (sbButtons[index]) {
+        sbButtons[index].classList.toggle("playing", playing);
+    }
+}
+
+function sbStopAndReset() {
+    sbSounds.forEach((sound, index) => {
+        if (sound) {
+            sound.pause();
+
+            try {
+                sound.currentTime = 0;
+            } catch (error) {
+                console.warn(
+                    "A hang pozíciója nem állítható vissza.",
+                    error
+                );
+            }
+        }
+
+        sbSetPlayingStyle(index, false);
+    });
+
+    sbCurrentSound = null;
+    sbCurrentIndex = null;
+}
+
+function sbPlay(index) {
+    const sound = sbSounds[index];
+
+    if (!sound) {
+        sbStopAndReset();
+
+        alert(
+            "Ehhez a gombhoz még nincs hang feltöltve. " +
+            "Nyisd meg a beállításokat, és tölts fel egy hangfájlt."
+        );
+
+        return;
+    }
+
+    sbStopAndReset();
+
+    sbCurrentIndex = index;
+    sbCurrentSound = sound;
+
+    sound.currentTime = 0;
+
+    const promise = sound.play();
+
+    sbSetPlayingStyle(index, true);
+
+    if (promise && typeof promise.catch === "function") {
+        promise.catch(error => {
+            sbSetPlayingStyle(index, false);
+            console.error("Lejátszási hiba:", error);
+        });
+    }
+}
+
+function sbPause() {
+    if (!sbCurrentSound) return;
+
+    sbCurrentSound.pause();
+
+    if (sbCurrentIndex !== null) {
+        sbSetPlayingStyle(sbCurrentIndex, false);
+    }
+}
+
+function sbResume() {
+    if (!sbCurrentSound) return;
+
+    if (sbCurrentSound.ended) {
+        sbCurrentSound.currentTime = 0;
+    }
+
+    const promise = sbCurrentSound.play();
+
+    if (sbCurrentIndex !== null) {
+        sbSetPlayingStyle(sbCurrentIndex, true);
+    }
+
+    if (promise && typeof promise.catch === "function") {
+        promise.catch(error => {
+            if (sbCurrentIndex !== null) {
+                sbSetPlayingStyle(sbCurrentIndex, false);
+            }
+
+            console.error("A hang folytatása nem sikerült:", error);
+        });
+    }
+}
+
+/* BEÁLLÍTÁSI MENÜ */
+
+function sbTogglePanel() {
+    const open = !sbPanel.classList.contains("open");
+
+    sbPanel.classList.toggle("open", open);
+    sbPanel.setAttribute("aria-hidden", String(!open));
+    sbMenuBtn.setAttribute("aria-expanded", String(open));
+
+    sbLabels.forEach(label => {
+        label.classList.toggle("show", open);
+    });
+}
+
+function sbClosePanel() {
+    sbPanel.classList.remove("open");
+    sbPanel.setAttribute("aria-hidden", "true");
+    sbMenuBtn.setAttribute("aria-expanded", "false");
+
+    sbLabels.forEach(label => {
+        label.classList.remove("show");
+    });
+}
+
+function sbShowMenu() {
+    document.getElementById("sbEditPanel").style.display = "none";
+    document.getElementById("sbBackgroundPanel").style.display = "none";
+
+    sbMenuList.style.display = "block";
+}
+
+/* GOMB BEÁLLÍTÁSAI */
+
+async function sbEdit(index) {
+    sbEditingIndex = index;
+
+    sbMenuList.style.display = "none";
+    document.getElementById("sbBackgroundPanel").style.display = "none";
+    document.getElementById("sbEditPanel").style.display = "block";
+
+    document.getElementById("sbEditTitle").textContent =
+        `Gomb ${index + 1} beállítása`;
+
+    document.getElementById("sbImgUpload").value = "";
+    document.getElementById("sbSndUpload").value = "";
+
+    try {
+        const img = await sbLoad(sbKey("image_" + index));
+        const snd = await sbLoad(sbKey("sound_" + index));
+        const name = await sbLoad(sbKey("soundName_" + index));
+
+        document.getElementById("sbImgLabel").textContent =
+            img ? (img.name || "Kép kiválasztva") : "Nincs kép";
+
+        document.getElementById("sbSndLabel").textContent =
+            snd ? (name || snd.name || "Hang kiválasztva") : "Nincs hang";
+
+    } catch (error) {
+        console.error("A gomb beállításai nem tölthetők be:", error);
+
+        alert("A gomb mentett beállításait nem sikerült betölteni.");
+    }
+}
+
+/* GOMB KÉPE */
+
+async function sbSetImage(event) {
+    const file = event.target.files && event.target.files[0];
+
+    if (!file || sbEditingIndex === null) return;
+
+    const index = sbEditingIndex;
+
+    try {
+        await sbSave(sbKey("image_" + index), file);
+
+        if (sbImageObjectUrls[index]) {
+            URL.revokeObjectURL(sbImageObjectUrls[index]);
+        }
+
+        const url = sbUrl(file);
+
+        sbImageObjectUrls[index] = url;
+        sbButtons[index].style.backgroundImage = `url("${url}")`;
+
+        document.getElementById("sbImgLabel").textContent = file.name;
+
+    } catch (error) {
+        console.error("Képmentési hiba:", error);
+        alert("A kép mentése nem sikerült.");
+    }
+}
+
+/* GOMB HANGJA */
+
+async function sbSetSound(event) {
+    const file = event.target.files && event.target.files[0];
+
+    if (!file || sbEditingIndex === null) return;
+
+    const index = sbEditingIndex;
+
+    try {
+        if (sbCurrentSound === sbSounds[index]) {
+            sbStopAndReset();
+        }
+
+        await sbSave(sbKey("sound_" + index), file);
+        await sbSave(sbKey("soundName_" + index), file.name);
+
+        if (sbSounds[index]) {
+            sbSounds[index].pause();
+            sbSounds[index].src = "";
+        }
+
+        if (sbCurrentObjectUrl[index]) {
+            URL.revokeObjectURL(sbCurrentObjectUrl[index]);
+        }
+
+        const url = sbUrl(file);
+
+        sbCurrentObjectUrl[index] = url;
+
+        const audio = new Audio(url);
+        audio.preload = "auto";
+
+        audio.addEventListener("ended", () => {
+            sbSetPlayingStyle(index, false);
+        });
+
+        sbSounds[index] = audio;
+
+        document.getElementById("sbSndLabel").textContent = file.name;
+
+    } catch (error) {
+        console.error("Hangmentési hiba:", error);
+        alert("A hang mentése nem sikerült.");
+    }
+}
+
+/* JÁTÉK HÁTTERE */
+
+async function sbBackgroundOpen() {
+    sbMenuList.style.display = "none";
+    document.getElementById("sbEditPanel").style.display = "none";
+    document.getElementById("sbBackgroundPanel").style.display = "block";
+
+    document.getElementById("sbBgUpload").value = "";
+
+    try {
+        const bg = await sbLoad(sbKey("background"));
+
+        document.getElementById("sbBgLabel").textContent =
+            bg ? (bg.name || "Háttér kiválasztva") : "Nincs háttérkép";
+
+    } catch (error) {
+        console.error("A háttér beállítása nem tölthető be:", error);
+    }
+}
+
+async function sbSetBackground(event) {
+    const file = event.target.files && event.target.files[0];
+
+    if (!file) return;
+
+    try {
+        await sbSave(sbKey("background"), file);
+
+        if (sbBackgroundObjectUrl) {
+            URL.revokeObjectURL(sbBackgroundObjectUrl);
+        }
+
+        const url = sbUrl(file);
+
+        sbBackgroundObjectUrl = url;
+        sbApp.style.backgroundImage = `url("${url}")`;
+
+        document.getElementById("sbBgLabel").textContent = file.name;
+
+    } catch (error) {
+        console.error("Háttérmentési hiba:", error);
+        alert("A háttérkép mentése nem sikerült.");
+    }
+}
+
+/* AKTUÁLIS CSOPORT JÁTÉKADATAINAK BETÖLTÉSE */
+
+async function sbLoadCurrentGroup() {
+    await sbOpenDb();
+
+    sbStopAndReset();
+
+    for (let index = 0; index < 8; index++) {
+        if (sbImageObjectUrls[index]) {
+            URL.revokeObjectURL(sbImageObjectUrls[index]);
+        }
+
+        if (sbCurrentObjectUrl[index]) {
+            URL.revokeObjectURL(sbCurrentObjectUrl[index]);
+        }
+
+        sbImageObjectUrls[index] = null;
+        sbCurrentObjectUrl[index] = null;
+
+        if (sbSounds[index]) {
+            sbSounds[index].pause();
+            sbSounds[index].src = "";
+        }
+
+        sbSounds[index] = null;
+        sbButtons[index].style.backgroundImage = "";
+    }
+
+    if (sbBackgroundObjectUrl) {
+        URL.revokeObjectURL(sbBackgroundObjectUrl);
+    }
+
+    sbBackgroundObjectUrl = null;
+    sbApp.style.backgroundImage = "";
+
+    for (let index = 0; index < 8; index++) {
+        const img = await sbLoad(sbKey("image_" + index));
+
+        if (img) {
+            const url = sbUrl(img);
+
+            sbImageObjectUrls[index] = url;
+            sbButtons[index].style.backgroundImage = `url("${url}")`;
+        }
+
+        const snd = await sbLoad(sbKey("sound_" + index));
+
+        if (snd) {
+            const url = sbUrl(snd);
+
+            sbCurrentObjectUrl[index] = url;
+
+            const audio = new Audio(url);
+            audio.preload = "auto";
+
+            audio.addEventListener("ended", () => {
+                sbSetPlayingStyle(index, false);
+            });
+
+            sbSounds[index] = audio;
+        }
+    }
+
+    const bg = await sbLoad(sbKey("background"));
+
+    if (bg) {
+        const url = sbUrl(bg);
+
+        sbBackgroundObjectUrl = url;
+        sbApp.style.backgroundImage = `url("${url}")`;
+    }
+}
+
+/* BEÁLLÍTÁSI MENÜ FELÉPÍTÉSE */
+
+async function sbInit() {
+    try {
+        await sbOpenDb();
+
+        for (let index = 0; index < 8; index++) {
+            const button = document.createElement("button");
+
+            button.type = "button";
+            button.className = "sb-menu-item";
+            button.textContent = `Gomb ${index + 1} beállítása`;
+
+            button.addEventListener("click", () => {
+                sbEdit(index);
+            });
+
+            sbMenuList.appendChild(button);
+        }
+
+        const bgButton = document.createElement("button");
+
+        bgButton.type = "button";
+        bgButton.className = "sb-menu-item sb-dark-item";
+        bgButton.textContent = "Háttér cseréje";
+
+        bgButton.addEventListener("click", sbBackgroundOpen);
+
+        sbMenuList.appendChild(bgButton);
+
+        sbShowMenu();
+
+    } catch (error) {
+        console.error("Gombos Játék adatbázishiba:", error);
+
+        alert(
+            "A Gombos Játék helyi mentéseit nem sikerült betölteni. " +
+            "Ellenőrizd, hogy a böngésző engedélyezi-e a helyi adattárolást."
+        );
+    }
+}
+
+/* BELÉPÉS ÉS VISSZALÉPÉS */
+
+async function sbOpen() {
+    if (!aktualisCsoport) {
+        alert("Előbb válassz ki egy csoportot!");
+        return;
+    }
+
+    sbStopAndReset();
+
+    fooldal.classList.add("rejtett");
+    csoportOldal.classList.add("rejtett");
+
+    sbView.classList.remove("rejtett");
+
+    sbShowMenu();
+    sbClosePanel();
+
+    animacioUjrainditasa(sbView);
+
+    window.scrollTo({ top: 0, behavior: "auto" });
+
+    try {
+        await sbLoadCurrentGroup();
+
+    } catch (error) {
+        console.error("A csoport hangjait nem sikerült betölteni:", error);
+
+        alert("A csoport mentett hangjait és képeit nem sikerült betölteni.");
+    }
+}
+
+function sbBack() {
+    sbStopAndReset();
+    sbClosePanel();
+
+    sbView.classList.add("rejtett");
+    csoportOldal.classList.remove("rejtett");
+
+    menuOldal.style.display = "none";
+    meseView.classList.add("rejtett");
+
+    tartalomOldal.style.display = "block";
+    tartalomOldal.classList.add("lathato");
+
+    visszaKategoriakhoz.classList.remove("rejtett");
+
+    window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+        sbStopAndReset();
+    }
+});
+
+/* GOMBOS JÁTÉK ESEMÉNYKEZELŐI */
+
+sbLaunch.addEventListener("click", sbOpen);
+sbMenuBtn.addEventListener("click", sbTogglePanel);
+sbBackBtn.addEventListener("click", sbBack);
+sbPlayBtn.addEventListener("click", sbResume);
+sbPauseBtn.addEventListener("click", sbPause);
+
+sbButtons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+        sbPlay(index);
+    });
+});
+
+document.getElementById("sbEditBack").addEventListener("click", sbShowMenu);
+document.getElementById("sbBgBack").addEventListener("click", sbShowMenu);
+
+document.getElementById("sbImgUpload").addEventListener("change", sbSetImage);
+document.getElementById("sbSndUpload").addEventListener("change", sbSetSound);
+document.getElementById("sbBgUpload").addEventListener("change", sbSetBackground);
+
+/* INDÍTÁS */
+
+sbInit();
+</script>
+</body>
+</html>

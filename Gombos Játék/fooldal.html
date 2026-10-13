@@ -1,0 +1,981 @@
+```html
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f6e8">
+    <title>Óvoda és Bölcsőde</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --szoveg: #344238;
+            --arnyek: 0 8px 24px rgba(50, 65, 45, 0.12);
+            --arnyek-hover: 0 14px 30px rgba(50, 65, 45, 0.19);
+        }
+
+        html {
+            min-height: 100%;
+            background: #e9efdf;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: 100dvh;
+            font-family: "Trebuchet MS", Arial, sans-serif;
+            color: var(--szoveg);
+            background: #e9efdf url("img/ovodahatter.png") center / cover fixed no-repeat;
+            overflow-x: hidden;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        button:focus-visible,
+        .csoportjel:focus-visible {
+            outline: 4px solid #405747;
+            outline-offset: 4px;
+        }
+
+        /* HÁTTÉR FÁTYOL - NEM HALVÁNYÍTJUK AZ EGÉSZ OLDALT */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: rgba(255, 255, 255, 0.30);
+        }
+
+        #app {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        .nezet {
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: clamp(16px, 3vw, 36px);
+        }
+
+        .rejtett {
+            display: none !important;
+        }
+
+        /* NÉZETEK FINOM MEGJELENÉSE */
+
+        .nezet.megjelenik {
+            animation: nezetErkezes 0.35s ease-out both;
+        }
+
+        @keyframes nezetErkezes {
+            from {
+                opacity: 0.65;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* FŐOLDAL */
+
+        #fooldal {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-bottom: clamp(24px, 5vh, 55px);
+            animation: logoErkezes 0.7s ease-out both;
+        }
+
+        .logo img {
+            display: block;
+            width: 70vw;
+            max-width: 1100px;
+            max-height: 42vh;
+            height: auto;
+            object-fit: contain;
+        }
+
+        @keyframes logoErkezes {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .csoportvalaszto {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            align-items: center;
+            justify-items: center;
+            gap: clamp(12px, 2.5vw, 42px);
+            width: 100%;
+            max-width: 1500px;
+        }
+
+        .csoportjel {
+            appearance: none;
+            border: 0;
+            background: transparent;
+            width: min(22vw, 350px);
+            aspect-ratio: 1;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+
+            opacity: 0;
+            animation: jelFelugras 0.65s cubic-bezier(0.2, 0.8, 0.25, 1.12) forwards;
+
+            transition: transform 0.22s ease, filter 0.22s ease;
+        }
+
+        .csoportjel:nth-child(1) { animation-delay: 0.12s; }
+        .csoportjel:nth-child(2) { animation-delay: 0.23s; }
+        .csoportjel:nth-child(3) { animation-delay: 0.34s; }
+        .csoportjel:nth-child(4) { animation-delay: 0.45s; }
+
+        .csoportjel img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        @keyframes jelFelugras {
+            0% {
+                opacity: 0;
+                transform: translateY(38px) scale(0.88);
+            }
+
+            75% {
+                opacity: 1;
+                transform: translateY(-5px) scale(1.025);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .csoportjel:hover {
+                transform: scale(1.07);
+                filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.18));
+            }
+        }
+
+        .csoportjel:active {
+            transform: scale(0.94);
+        }
+
+        /* CSOPORTOLDAL FEJLÉCE */
+
+        .fejlec {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            animation: fejlecErkezes 0.45s ease-out both;
+        }
+
+        @keyframes fejlecErkezes {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .vissza {
+            flex-shrink: 0;
+            border: none;
+            border-radius: 16px;
+            padding: 13px 20px;
+            background: #fff;
+            color: #405747;
+            font-weight: bold;
+            font-size: clamp(14px, 1.2vw, 17px);
+            cursor: pointer;
+            box-shadow: var(--arnyek);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .vissza:hover {
+            background: #f0f7e9;
+            transform: translateY(-2px);
+        }
+
+        .vissza:active {
+            transform: scale(0.97);
+        }
+
+        .csoportfejlec {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: clamp(8px, 1.5vw, 16px);
+            min-width: 0;
+        }
+
+        .csoportfejlec img {
+            width: clamp(48px, 6vw, 82px);
+            height: clamp(48px, 6vw, 82px);
+            flex-shrink: 0;
+            object-fit: contain;
+            animation: jelFelugras 0.6s ease-out both;
+        }
+
+        .csoportszoveg {
+            min-width: 0;
+            text-align: right;
+        }
+
+        .csoportszoveg h1 {
+            font-size: clamp(19px, 2.5vw, 36px);
+            line-height: 1.2;
+            margin-bottom: 5px;
+            overflow-wrap: anywhere;
+        }
+
+        .csoportszoveg p {
+            font-size: clamp(12px, 1.2vw, 16px);
+            opacity: 0.8;
+        }
+
+        /* BEVEZETŐ SZÖVEG */
+
+        .bevezeto {
+            text-align: center;
+            margin: clamp(30px, 5vh, 55px) auto clamp(24px, 4vh, 40px);
+            padding: 0 10px;
+            animation: bevezetoErkezes 0.5s ease-out 0.08s both;
+        }
+
+        @keyframes bevezetoErkezes {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bevezeto h2 {
+            font-size: clamp(27px, 3.5vw, 46px);
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .bevezeto p {
+            font-size: clamp(15px, 1.6vw, 20px);
+            line-height: 1.6;
+        }
+
+        /* HAT TEVÉKENYSÉGKÁRTYA */
+
+        .menuk {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: clamp(14px, 2vw, 26px);
+        }
+
+        .kartya {
+            appearance: none;
+            width: 100%;
+            min-width: 0;
+            min-height: clamp(185px, 23vh, 250px);
+            border: 3px solid rgba(255, 255, 255, 0.92);
+            border-radius: clamp(20px, 2.2vw, 30px);
+            padding: clamp(18px, 2.4vw, 30px) clamp(12px, 1.8vw, 22px);
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            color: var(--szoveg);
+            cursor: pointer;
+            box-shadow: var(--arnyek);
+            -webkit-tap-highlight-color: transparent;
+
+            opacity: 0;
+            animation: kartyaFelugras 0.6s cubic-bezier(0.2, 0.8, 0.25, 1.1) forwards;
+
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .kartya:nth-child(1) { animation-delay: 0.12s; }
+        .kartya:nth-child(2) { animation-delay: 0.22s; }
+        .kartya:nth-child(3) { animation-delay: 0.32s; }
+        .kartya:nth-child(4) { animation-delay: 0.42s; }
+        .kartya:nth-child(5) { animation-delay: 0.52s; }
+        .kartya:nth-child(6) { animation-delay: 0.62s; }
+
+        @keyframes kartyaFelugras {
+            0% {
+                opacity: 0;
+                transform: translateY(32px) scale(0.93);
+            }
+
+            75% {
+                opacity: 1;
+                transform: translateY(-4px) scale(1.015);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .kartya:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--arnyek-hover);
+        }
+
+        .kartya:active {
+            transform: scale(0.98);
+        }
+
+        .kartya .ikon {
+            font-size: clamp(42px, 5vw, 64px);
+            line-height: 1.2;
+            margin-bottom: clamp(10px, 1.5vh, 16px);
+        }
+
+        .kartya h3 {
+            font-size: clamp(18px, 1.8vw, 26px);
+            line-height: 1.3;
+            margin-bottom: 9px;
+            overflow-wrap: anywhere;
+        }
+
+        .kartya p {
+            max-width: 300px;
+            font-size: clamp(13px, 1.2vw, 16px);
+            line-height: 1.5;
+        }
+
+        .torna { background: #ffe1d6; }
+        .enek { background: #fff0b8; }
+        .kedvencek { background: #f5dff7; }
+        .mese { background: #dceaff; }
+        .jatekok { background: #d9f2dc; }
+        .unnepek { background: #ffdfeb; }
+
+        /* TEVÉKENYSÉG TARTALMA */
+
+        .tartalom {
+            display: none;
+            width: 100%;
+            max-width: 1100px;
+            margin: clamp(25px, 5vh, 50px) auto 0;
+            padding: clamp(24px, 5vw, 60px);
+            border: 3px solid rgba(255, 255, 255, 0.9);
+            border-radius: clamp(22px, 3vw, 32px);
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: var(--arnyek);
+            text-align: center;
+        }
+
+        .tartalom.lathato {
+            display: block;
+            animation: tartalomErkezes 0.35s ease both;
+        }
+
+        @keyframes tartalomErkezes {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tartalom-ikon {
+            font-size: clamp(50px, 7vw, 80px);
+            margin-bottom: 15px;
+        }
+
+        .tartalom h2 {
+            font-size: clamp(26px, 3.5vw, 42px);
+            line-height: 1.25;
+            margin-bottom: 18px;
+        }
+
+        .tartalom p {
+            font-size: clamp(15px, 1.6vw, 20px);
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        .kesobbi {
+            display: inline-block;
+            max-width: 100%;
+            margin-top: 25px;
+            padding: 12px 20px;
+            border-radius: 14px;
+            background: #edf5e9;
+            font-weight: bold;
+            line-height: 1.5;
+        }
+
+        /* TABLET */
+
+        @media (max-width: 900px) {
+            .csoportvalaszto {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                max-width: 650px;
+                gap: 20px;
+            }
+
+            .csoportjel {
+                width: min(38vw, 260px);
+            }
+
+            .menuk {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px;
+            }
+
+            .kartya {
+                min-height: 195px;
+            }
+
+            .bevezeto {
+                margin-top: 35px;
+            }
+        }
+
+        /* TELEFON */
+
+        @media (max-width: 520px) {
+            body {
+                background-attachment: scroll;
+            }
+
+            .nezet {
+                padding: 16px 14px 28px;
+            }
+
+            #fooldal {
+                justify-content: flex-start;
+                padding-top: 5vh;
+            }
+
+            .logo {
+                margin-bottom: 5vh;
+            }
+
+            .logo img {
+                width: 88vw;
+                max-height: 28vh;
+            }
+
+            .csoportvalaszto {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 14px;
+            }
+
+            .csoportjel {
+                width: min(42vw, 220px);
+            }
+
+            .fejlec {
+                align-items: center;
+                gap: 10px;
+            }
+
+            .vissza {
+                max-width: 48%;
+                padding: 11px 12px;
+                border-radius: 13px;
+                font-size: 13px;
+                line-height: 1.4;
+                white-space: normal;
+            }
+
+            .csoportfejlec {
+                gap: 7px;
+            }
+
+            .csoportfejlec img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .csoportszoveg h1 {
+                font-size: clamp(16px, 4.2vw, 20px);
+                margin-bottom: 3px;
+            }
+
+            .csoportszoveg p {
+                font-size: 11px;
+            }
+
+            .bevezeto {
+                margin: 30px auto 24px;
+            }
+
+            .bevezeto h2 {
+                font-size: clamp(26px, 7vw, 32px);
+                margin-bottom: 10px;
+            }
+
+            .bevezeto p {
+                font-size: 15px;
+            }
+
+            .menuk {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .kartya {
+                min-height: 165px;
+                padding: 17px 9px;
+                border-width: 2px;
+                border-radius: 20px;
+            }
+
+            .kartya .ikon {
+                font-size: clamp(36px, 10vw, 46px);
+                margin-bottom: 9px;
+            }
+
+            .kartya h3 {
+                font-size: clamp(16px, 4.3vw, 19px);
+                margin-bottom: 6px;
+            }
+
+            .kartya p {
+                font-size: 12px;
+                line-height: 1.4;
+            }
+
+            .tartalom {
+                margin-top: 25px;
+                padding: 27px 17px;
+                border-radius: 22px;
+            }
+
+            .tartalom-ikon {
+                font-size: 56px;
+            }
+
+            .tartalom h2 {
+                font-size: 27px;
+            }
+
+            .tartalom p {
+                font-size: 15px;
+                line-height: 1.7;
+            }
+
+            .kesobbi {
+                margin-top: 20px;
+                padding: 11px 13px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .nezet {
+                padding: 12px 10px 22px;
+            }
+
+            .fejlec {
+                align-items: flex-start;
+                flex-wrap: wrap;
+            }
+
+            .vissza {
+                max-width: 100%;
+            }
+
+            .csoportfejlec {
+                margin-left: auto;
+            }
+
+            .menuk {
+                grid-template-columns: 1fr;
+                gap: 13px;
+            }
+
+            .kartya {
+                min-height: 150px;
+                padding: 20px 14px;
+            }
+
+            .kartya .ikon {
+                font-size: 42px;
+            }
+
+            .kartya h3 {
+                font-size: 19px;
+            }
+
+            .kartya p {
+                font-size: 14px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+
+    <!-- FŐOLDAL -->
+    <main id="fooldal" class="nezet">
+        <div class="logo">
+            <img src="img/lábléc.png" alt="Bölcsőde és Óvoda">
+        </div>
+
+        <div class="csoportvalaszto">
+            <button class="csoportjel" type="button" data-csoport="nap"
+                    aria-label="Bölcsőde – Napocska">
+                <img src="img/napjel.png" alt="Napocska">
+            </button>
+
+            <button class="csoportjel" type="button" data-csoport="pillango"
+                    aria-label="Óvoda – Pillangó">
+                <img src="img/pillangojel.png" alt="Pillangó">
+            </button>
+
+            <button class="csoportjel" type="button" data-csoport="katica"
+                    aria-label="Óvoda – Katica">
+                <img src="img/katicajel.png" alt="Katica">
+            </button>
+
+            <button class="csoportjel" type="button" data-csoport="mehecske"
+                    aria-label="Óvoda – Méhecske">
+                <img src="img/mehecskejel.png" alt="Méhecske">
+            </button>
+        </div>
+    </main>
+
+    <!-- CSOPORTMENÜ -->
+    <main id="csoportOldal" class="nezet rejtett">
+        <header class="fejlec">
+            <button class="vissza" id="visszaFooldalra" type="button">
+                ← Vissza a főoldalra
+            </button>
+
+            <div class="csoportfejlec">
+                <div class="csoportszoveg">
+                    <h1 id="csoportNev">Óvoda</h1>
+                    <p>Tevékenységek és élmények</p>
+                </div>
+                <img id="csoportKep" src="img/pillangojel.png" alt="">
+            </div>
+        </header>
+
+        <section id="menuOldal">
+            <div class="bevezeto">
+                <h2>Mit csináljunk ma? 🌼</h2>
+                <p>Válassz egy tevékenységet, és indulhat a közös élmény!</p>
+            </div>
+
+            <div class="menuk">
+                <button class="kartya torna" data-kategoria="torna" type="button">
+                    <span class="ikon">🤸</span>
+                    <h3>Torna</h3>
+                    <p>Mozgás, ügyesség és vidám feladatok</p>
+                </button>
+
+                <button class="kartya enek" data-kategoria="enek" type="button">
+                    <span class="ikon">🎵</span>
+                    <h3>Ének-zene-tánc</h3>
+                    <p>Dalok, ritmusok és táncos játékok</p>
+                </button>
+
+                <button class="kartya kedvencek" data-kategoria="kedvencek" type="button">
+                    <span class="ikon">⭐</span>
+                    <h3>Kedvencek</h3>
+                    <p>A csoport kedvenc tevékenységei</p>
+                </button>
+
+                <button class="kartya mese" data-kategoria="mese" type="button">
+                    <span class="ikon">📚</span>
+                    <h3>Mese</h3>
+                    <p>Mesék, versek</p>
+                </button>
+
+                <button class="kartya jatekok" data-kategoria="jatekok" type="button">
+                    <span class="ikon">🧩</span>
+                    <h3>Játékok</h3>
+                    <p>Játékos feladatok és közös móka</p>
+                </button>
+
+                <button class="kartya unnepek" data-kategoria="unnepek" type="button">
+                    <span class="ikon">🎉</span>
+                    <h3>Jeles napok</h3>
+                    <p>Ünnepek, hagyományok és alkalmak</p>
+                </button>
+            </div>
+        </section>
+
+        <!-- KIVÁLASZTOTT TEVÉKENYSÉG -->
+        <section class="tartalom" id="tartalomOldal" aria-live="polite">
+            <div class="tartalom-ikon" id="tartalomIkon">🌟</div>
+            <h2 id="tartalomCim">Tevékenység</h2>
+            <p id="tartalomLeiras"></p>
+            <span class="kesobbi">A tartalmakat később ide építjük be.</span>
+        </section>
+
+        <button class="vissza rejtett" id="visszaKategoriakhoz" type="button">
+            ← Vissza a tevékenységekhez
+        </button>
+    </main>
+
+</div>
+
+<script>
+"use strict";
+
+/* CSOPORTADATOK */
+
+const csoportok = {
+    nap: {
+        nev: "Bölcsőde – Napocska",
+        kep: "img/napjel.png",
+        alt: "Napocska"
+    },
+
+    pillango: {
+        nev: "Óvoda – Pillangó",
+        kep: "img/pillangojel.png",
+        alt: "Pillangó"
+    },
+
+    katica: {
+        nev: "Óvoda – Katica",
+        kep: "img/katicajel.png",
+        alt: "Katica"
+    },
+
+    mehecske: {
+        nev: "Óvoda – Méhecske",
+        kep: "img/mehecskejel.png",
+        alt: "Méhecske"
+    }
+};
+
+/* TEVÉKENYSÉGEK */
+
+const kategoriak = {
+    torna: {
+        cim: "Torna",
+        ikon: "🤸",
+        leiras: "Itt kapnak majd helyet a mozgásos feladatok, tornagyakorlatok és ügyességi játékok."
+    },
+
+    enek: {
+        cim: "Ének-zene-tánc",
+        ikon: "🎵",
+        leiras: "Itt lesznek majd a dalok, zenék, mondókák, ritmusjátékok és táncos tevékenységek."
+    },
+
+    kedvencek: {
+        cim: "Kedvencek",
+        ikon: "⭐",
+        leiras: "Ide kerülhetnek a csoport kedvenc hangjai, dalai, játékai és gyakran használt tevékenységei."
+    },
+
+    mese: {
+        cim: "Mese",
+        ikon: "📚",
+        leiras: "Itt gyűjthetjük össze a meséket, történeteket és a meséléshez kapcsolódó hangokat."
+    },
+
+    jatekok: {
+        cim: "Játékok",
+        ikon: "🧩",
+        leiras: "Ide kerülhetnek a közös játékok, játékos feladatok és interaktív tevékenységek."
+    },
+
+    unnepek: {
+        cim: "Jeles ünnepek",
+        ikon: "🎉",
+        leiras: "Itt gyűjthetjük össze az ünnepekhez, évszakokhoz és hagyományokhoz kapcsolódó tartalmakat."
+    }
+};
+
+/* HTML-ELEMEK */
+
+const fooldal = document.getElementById("fooldal");
+const csoportOldal = document.getElementById("csoportOldal");
+const csoportNev = document.getElementById("csoportNev");
+const csoportKep = document.getElementById("csoportKep");
+const menuOldal = document.getElementById("menuOldal");
+const tartalomOldal = document.getElementById("tartalomOldal");
+const visszaFooldalra = document.getElementById("visszaFooldalra");
+const visszaKategoriakhoz = document.getElementById("visszaKategoriakhoz");
+
+let aktualisCsoport = null;
+let aktualisKategoria = null;
+
+/* NÉZETVÁLTÁS TELJES OLDALBETÖLTÉS NÉLKÜL */
+
+function animacioUjrainditasa(elem) {
+    elem.classList.remove("megjelenik");
+    void elem.offsetWidth;
+    elem.classList.add("megjelenik");
+}
+
+function csoportMegnyitasa(azonosito) {
+    const adat = csoportok[azonosito];
+    if (!adat) return;
+
+    aktualisCsoport = azonosito;
+    aktualisKategoria = null;
+
+    csoportNev.textContent = adat.nev;
+    csoportKep.src = adat.kep;
+    csoportKep.alt = adat.alt;
+
+    tartalomOldal.classList.remove("lathato");
+    tartalomOldal.style.display = "none";
+    menuOldal.style.display = "block";
+    visszaKategoriakhoz.classList.add("rejtett");
+
+    fooldal.classList.add("rejtett");
+    csoportOldal.classList.remove("rejtett");
+    animacioUjrainditasa(csoportOldal);
+
+    window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+function fooldalMegnyitasa() {
+    aktualisCsoport = null;
+    aktualisKategoria = null;
+
+    csoportOldal.classList.add("rejtett");
+    fooldal.classList.remove("rejtett");
+    animacioUjrainditasa(fooldal);
+
+    window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+/* CSOPORTJELEK */
+
+document.querySelectorAll("[data-csoport]").forEach(gomb => {
+    gomb.addEventListener("click", () => {
+        csoportMegnyitasa(gomb.dataset.csoport);
+    });
+});
+
+/* KATEGÓRIA MEGNYITÁSA */
+
+document.querySelectorAll("[data-kategoria]").forEach(gomb => {
+    gomb.addEventListener("click", () => {
+        const adat = kategoriak[gomb.dataset.kategoria];
+        if (!adat) return;
+
+        aktualisKategoria = gomb.dataset.kategoria;
+
+        document.getElementById("tartalomIkon").textContent = adat.ikon;
+        document.getElementById("tartalomCim").textContent = adat.cim;
+        document.getElementById("tartalomLeiras").textContent = adat.leiras;
+
+        menuOldal.style.display = "none";
+        tartalomOldal.style.display = "block";
+        tartalomOldal.classList.remove("lathato");
+
+        void tartalomOldal.offsetWidth;
+        tartalomOldal.classList.add("lathato");
+
+        visszaKategoriakhoz.classList.remove("rejtett");
+        visszaKategoriakhoz.style.display = "inline-block";
+
+        window.scrollTo({ top: 0, behavior: "auto" });
+    });
+});
+
+/* VISSZA A FŐOLDALRA */
+
+visszaFooldalra.addEventListener("click", fooldalMegnyitasa);
+
+/* VISSZA A KATEGÓRIÁKHOZ */
+
+visszaKategoriakhoz.addEventListener("click", () => {
+    if (!aktualisCsoport) return;
+
+    tartalomOldal.classList.remove("lathato");
+    tartalomOldal.style.display = "none";
+
+    menuOldal.style.display = "block";
+    animacioUjrainditasa(menuOldal);
+
+    visszaKategoriakhoz.classList.add("rejtett");
+
+    window.scrollTo({ top: 0, behavior: "auto" });
+});
+</script>
+</body>
+</html>
+```
